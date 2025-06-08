@@ -49,7 +49,28 @@
 
     <!-- === Project Properties === -->
     <properties>
+        <!-- === Meta Properties === -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- === Maven Compiler === -->
+        <maven.compiler.release>17</maven.compiler.release>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <!-- === Dependency Versions === -->
+        <spring-boot-starter.version>3.5.0</spring-boot-starter.version>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <version>${spring-boot-starter.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>${spring-boot-starter.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
 </project>
