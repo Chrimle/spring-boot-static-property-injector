@@ -1,0 +1,186 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- === Project Coordinates === -->
+    <groupId>io.github.chrimle</groupId>
+    <artifactId>spring-boot-static-property-injector</artifactId>
+    <version>0.1.0</version>
+    <packaging>jar</packaging>
+
+    <!-- === Project Metadata === -->
+    <name>Spring-Boot Static Property Injector</name>
+    <description>Inject Spring-Boot properties to static contexts.</description>
+    <url>https://chrimle.github.io/spring-boot-static-property-injector</url>
+    <inceptionYear>2025</inceptionYear>
+
+    <licenses>
+        <license>
+            <name>Apache License 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <organization>
+        <name>Spring Boot Static Property Injector</name>
+        <url>https://chrimle.github.io/spring-boot-static-property-injector/</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <id>Chrimle</id>
+            <name>Christopher Molin</name>
+            <url>https://www.chrimle.com</url>
+            <roles>
+                <role>Lead Developer</role>
+            </roles>
+            <timezone>CET</timezone>
+        </developer>
+    </developers>
+
+    <scm>
+        <url>http://github.com/chrimle/spring-boot-static-property-injector/tree/main</url>
+        <connection>scm:git:git://github.com/chrimle/spring-boot-static-property-injector.git</connection>
+        <developerConnection>scm:git:ssh://github.com:chrimle/spring-boot-static-property-injector.git</developerConnection>
+    </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Chrimle Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/chrimle/spring-boot-static-property-injector</url>
+        </repository>
+        <snapshotRepository>
+            <id>github</id>
+            <name>GitHub Chrimle Apache Maven Snapshot Packages</name>
+            <url>https://maven.pkg.github.com/chrimle/spring-boot-static-property-injector</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <!-- === Project Properties === -->
+    <properties>
+        <!-- === Meta Properties === -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- === Maven Compiler === -->
+        <maven.compiler.release>17</maven.compiler.release>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <!-- === Spotless === -->
+        <spotless.check.skip>false</spotless.check.skip>
+        <spotless-maven-plugin.version>2.44.5</spotless-maven-plugin.version>
+        <googleJavaFormat.version>1.23.0</googleJavaFormat.version>
+        <!-- Publish to Maven Central Repository -->
+        <maven-gpg-plugin.version>3.2.7</maven-gpg-plugin.version>
+        <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
+        <central-publishing-maven-plugin.version>0.7.0</central-publishing-maven-plugin.version>
+        <!-- === Dependency Versions === -->
+        <spring-boot-starter.version>3.5.0</spring-boot-starter.version>
+    </properties>
+
+    <!-- === Dependencies === -->
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <version>${spring-boot-starter.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>${spring-boot-starter.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <!-- === Build Plugins === -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+                <version>${spotless-maven-plugin.version}</version>
+                <configuration>
+                    <!-- Skips the spotless:apply when running in GitHub Actions -->
+                    <skip>${env.CI}</skip>
+                    <java>
+                        <lineEndings>UNIX</lineEndings>
+                        <includes>
+                            <include>src/main/**/*.java</include>
+                            <include>src/test/**/*.java</include>
+                        </includes>
+                        <googleJavaFormat>
+                            <version>${googleJavaFormat.version}</version>
+                            <style>GOOGLE</style>
+                        </googleJavaFormat>
+                    </java>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>apply</goal>
+                        </goals>
+                        <phase>validate</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <!-- === Profiles === -->
+    <profiles>
+        <profile>
+            <id>deploy-to-maven-central</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>${central-publishing-maven-plugin.version}</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                            <tokenAuth>true</tokenAuth>
+                            <autoPublish>true</autoPublish>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>${maven-source-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven-gpg-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
