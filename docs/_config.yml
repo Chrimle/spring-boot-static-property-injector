@@ -1,0 +1,3 @@
+theme: cayman
+title: Spring Boot Static Property Injector
+description: Inject Spring Boot Properties to static fields!
