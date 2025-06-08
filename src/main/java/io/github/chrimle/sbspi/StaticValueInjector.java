@@ -81,7 +81,7 @@ public class StaticValueInjector implements BeanPostProcessor, ApplicationContex
       } else if (annotationValue.startsWith("${")) {
         value = context.getEnvironment().resolvePlaceholders(annotationValue);
       } else {
-        throw new RuntimeException();
+        throw new StaticValueInjectorException("The field %s will not be assigned a new value, because the 'value' is neither a valid SpEL nor a valid Spring Boot Property Placeholder!".formatted(field.getName()));
       }
 
       if (annotationValue.equals(value)) {
