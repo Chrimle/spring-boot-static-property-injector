@@ -1,5 +1,10 @@
 package io.github.chrimle.sbspi;
 
+import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -18,12 +23,6 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-
 @Component
 public class StaticValueInjector implements BeanPostProcessor, ApplicationContextAware {
 
@@ -40,7 +39,8 @@ public class StaticValueInjector implements BeanPostProcessor, ApplicationContex
   private final StandardEvaluationContext evalContext = new StandardEvaluationContext();
 
   @Override
-  public void setApplicationContext(final ApplicationContext applicationContext) throws BeansException {
+  public void setApplicationContext(final ApplicationContext applicationContext)
+      throws BeansException {
     this.context = applicationContext;
     this.scanner = new ClassPathScanningCandidateComponentProvider(false);
     this.scanner.addIncludeFilter((metadataReader, metadataReaderFactory) -> true);
@@ -64,29 +64,41 @@ public class StaticValueInjector implements BeanPostProcessor, ApplicationContex
     final List<Field> allAnnotatedFields = getAllAnnotatedFields();
 
     if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Found {} fields annotated with {}.", allAnnotatedFields.size(), STATIC_VALUE_CLASS.getSimpleName());
+      LOGGER.debug(
+          "Found {} fields annotated with {}.",
+          allAnnotatedFields.size(),
+          STATIC_VALUE_CLASS.getSimpleName());
     }
 
     for (final Field field : allAnnotatedFields) {
       final var annotation = Objects.requireNonNull(field.getAnnotation(STATIC_VALUE_CLASS));
       String annotationValue = annotation.value();
       if (annotationValue == null || annotationValue.isBlank()) {
-        throw new StaticValueInjectorException("The field %s was annotated with %s, but 'value' is either null or blank!".formatted(field.getName(), STATIC_VALUE_CLASS.getSimpleName()));
+        throw new StaticValueInjectorException(
+            "The field %s was annotated with %s, but 'value' is either null or blank!"
+                .formatted(field.getName(), STATIC_VALUE_CLASS.getSimpleName()));
       }
 
       String value;
       if (annotationValue.startsWith("#{") && annotationValue.endsWith("}")) {
         annotationValue = annotationValue.substring(2, annotationValue.length() - 1);
-        value = Optional.ofNullable(parser.parseExpression(annotationValue).getValue(evalContext)).map(Object::toString).orElse(null);
+        value =
+            Optional.ofNullable(parser.parseExpression(annotationValue).getValue(evalContext))
+                .map(Object::toString)
+                .orElse(null);
       } else if (annotationValue.startsWith("${")) {
         value = context.getEnvironment().resolvePlaceholders(annotationValue);
       } else {
-        throw new StaticValueInjectorException("The field %s will not be assigned a new value, because the 'value' is neither a valid SpEL nor a valid Spring Boot Property Placeholder!".formatted(field.getName()));
+        throw new StaticValueInjectorException(
+            "The field %s will not be assigned a new value, because the 'value' is neither a valid SpEL nor a valid Spring Boot Property Placeholder!"
+                .formatted(field.getName()));
       }
 
       if (annotationValue.equals(value)) {
         if (LOGGER.isDebugEnabled()) {
-          LOGGER.debug("The field {} will not be assigned a new value, because the 'value' could not be resolved!", field.getName());
+          LOGGER.debug(
+              "The field {} will not be assigned a new value, because the 'value' could not be resolved!",
+              field.getName());
         }
         continue;
       }
@@ -94,7 +106,9 @@ public class StaticValueInjector implements BeanPostProcessor, ApplicationContex
       try {
         convertedValue = conversionService.convert(value, field.getType());
       } catch (ConversionException e) {
-        throw new StaticValueInjectorException("The field {} cannot be assigned a new value, because ConversionService could not parse and convert the new value!", e);
+        throw new StaticValueInjectorException(
+            "The field {} cannot be assigned a new value, because ConversionService could not parse and convert the new value!",
+            e);
       }
 
       final boolean accessBefore = field.canAccess(null);
@@ -109,14 +123,18 @@ public class StaticValueInjector implements BeanPostProcessor, ApplicationContex
 
   private List<Field> getAllAnnotatedFields() {
     return scanner.findCandidateComponents(basePackage).stream()
-        .map(beanDefinition -> {
+        .map(
+            beanDefinition -> {
               try {
                 return Class.forName(beanDefinition.getBeanClassName());
               } catch (ClassNotFoundException e) {
-                throw new StaticValueInjectorException("Could not find the class for the bean: %s".formatted(beanDefinition.getBeanClassName()), e);
+                throw new StaticValueInjectorException(
+                    "Could not find the class for the bean: %s"
+                        .formatted(beanDefinition.getBeanClassName()),
+                    e);
               }
-            }
-        ).map(Class::getDeclaredFields)
+            })
+        .map(Class::getDeclaredFields)
         .flatMap(Arrays::stream)
         .filter(field -> field.isAnnotationPresent(STATIC_VALUE_CLASS))
         .toList();

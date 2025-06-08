@@ -55,10 +55,15 @@
         <maven.compiler.release>17</maven.compiler.release>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <!-- === Spotless === -->
+        <spotless.check.skip>false</spotless.check.skip>
+        <spotless-maven-plugin.version>2.44.5</spotless-maven-plugin.version>
+        <googleJavaFormat.version>1.23.0</googleJavaFormat.version>
         <!-- === Dependency Versions === -->
         <spring-boot-starter.version>3.5.0</spring-boot-starter.version>
     </properties>
 
+    <!-- === Dependencies === -->
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -73,4 +78,37 @@
         </dependency>
     </dependencies>
 
+    <!-- === Build Plugins === -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+                <version>${spotless-maven-plugin.version}</version>
+                <configuration>
+                    <!-- Skips the spotless:apply when running in GitHub Actions -->
+                    <skip>${env.CI}</skip>
+                    <java>
+                        <lineEndings>UNIX</lineEndings>
+                        <includes>
+                            <include>src/main/**/*.java</include>
+                            <include>src/test/**/*.java</include>
+                        </includes>
+                        <googleJavaFormat>
+                            <version>${googleJavaFormat.version}</version>
+                            <style>GOOGLE</style>
+                        </googleJavaFormat>
+                    </java>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>apply</goal>
+                        </goals>
+                        <phase>validate</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

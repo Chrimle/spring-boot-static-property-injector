@@ -7,14 +7,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
- * Class for testing {@link StaticValueInjector} is correctly resolving the values of the static fields of classes under test.
+ * Class for testing {@link StaticValueInjector} is correctly resolving the values of the static
+ * fields of classes under test.
  */
-@SpringBootTest(properties = {
-    "test.strings.set-string-without-default=beta",
-    "test.strings.set-string-with-default=delta",
-    "test.strings.set-spel-string-without-default=zeta",
-    "test.strings.set-spel-string-with-default=eta"
-})
+@SpringBootTest(
+    properties = {
+      "test.strings.set-string-without-default=beta",
+      "test.strings.set-string-with-default=delta",
+      "test.strings.set-spel-string-without-default=zeta",
+      "test.strings.set-spel-string-with-default=eta"
+    })
 @DisplayName("Testing `StaticValueInjector`")
 class StaticValueInjectorTest {
 

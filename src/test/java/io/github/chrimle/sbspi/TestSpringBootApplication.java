@@ -4,7 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * This is a skeleton Spring Boot Application, which will scan and enable {@link StaticValueInjector}.
+ * This is a skeleton Spring Boot Application, which will scan and enable {@link
+ * StaticValueInjector}.
  */
 @SpringBootApplication(scanBasePackages = "io.github.chrimle.sbspi")
 public class TestSpringBootApplication {
