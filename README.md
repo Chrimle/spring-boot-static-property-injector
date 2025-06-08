@@ -1,4 +1,4 @@
-# spring-boot-static-properties
+# Spring Boot Static Property Injector
 
 If you find this project useful, please ⭐ **Star** ⭐ it and share it with others!
 This is the best way to show appreciation for this project - Thank you! ❤️
