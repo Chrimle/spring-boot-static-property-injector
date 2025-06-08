@@ -23,10 +23,23 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.stereotype.Component;
 
+/**
+ * Processes all classes within {@link #basePackage} and processes <em>static fields</em> annotated
+ * with {@link StaticValue}.
+ *
+ * @since 0.1.0
+ * @author Chrimle
+ */
 @Component
 public class StaticValueInjector implements BeanPostProcessor, ApplicationContextAware {
 
+  /**
+   * The annotation class which to process.
+   *
+   * @since 0.1.0
+   */
   public static final Class<StaticValue> STATIC_VALUE_CLASS = StaticValue.class;
+
   private static final Logger LOGGER = LoggerFactory.getLogger(StaticValueInjector.class);
 
   @Value("${sbspi.basePackage}")
