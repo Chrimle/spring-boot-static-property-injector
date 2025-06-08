@@ -22,6 +22,7 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Component
 public class StaticValueInjector implements BeanPostProcessor, ApplicationContextAware {
@@ -68,21 +69,20 @@ public class StaticValueInjector implements BeanPostProcessor, ApplicationContex
 
     for (final Field field : allAnnotatedFields) {
       final var annotation = Objects.requireNonNull(field.getAnnotation(STATIC_VALUE_CLASS));
-        final String annotationValue = annotation.value();
-        if (annotationValue == null || annotationValue.isBlank()) {
-          throw new StaticValueInjectorException("The field %s was annotated with %s, but 'value' is either null or blank!".formatted(field.getName(), STATIC_VALUE_CLASS.getSimpleName()));
-        }
-
-      //    if (rawExpression.startsWith("#")){
-      //      Object result = parser.parseExpression(rawExpression).getValue(evalContext);
-      //      return result != null ? result.toString() : null;
-      //    }
-
-      if (!annotationValue.startsWith("$")) {
-        throw new StaticValueInjectorException("The field %s was annotated with %s, but 'value' is not prefixed by '$'!".formatted(field.getName(), STATIC_VALUE_CLASS.getSimpleName()));
+      String annotationValue = annotation.value();
+      if (annotationValue == null || annotationValue.isBlank()) {
+        throw new StaticValueInjectorException("The field %s was annotated with %s, but 'value' is either null or blank!".formatted(field.getName(), STATIC_VALUE_CLASS.getSimpleName()));
       }
 
-      final String value = context.getEnvironment().resolvePlaceholders(annotationValue);
+      String value;
+      if (annotationValue.startsWith("#{") && annotationValue.endsWith("}")) {
+        annotationValue = annotationValue.substring(2, annotationValue.length() - 1);
+        value = Optional.ofNullable(parser.parseExpression(annotationValue).getValue(evalContext)).map(Object::toString).orElse(null);
+      } else if (annotationValue.startsWith("${")) {
+        value = context.getEnvironment().resolvePlaceholders(annotationValue);
+      } else {
+        throw new RuntimeException();
+      }
 
       if (annotationValue.equals(value)) {
         if (LOGGER.isDebugEnabled()) {
