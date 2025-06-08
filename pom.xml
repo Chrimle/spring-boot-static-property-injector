@@ -153,10 +153,6 @@
                         <goals>
                             <goal>jar</goal>
                         </goals>
-                        <configuration>
-                            <!-- Prevent errors on missing docs -->
-                            <failOnError>false</failOnError>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
