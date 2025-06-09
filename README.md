@@ -21,7 +21,7 @@ The following is a simple example of how this library can be used.
     <version>0.1.0</version>
 </dependency>
 ```
-> [!NOTE] This artifact is hosted on
+> [!INFO] This artifact is hosted on
 > - [Maven Central Repository](https://central.sonatype.com/artifact/io.github.chrimle/spring-boot-static-property-injector)
 > - [GitHub Packages](https://github.com/Chrimle/spring-boot-static-property-injector/packages)
 
@@ -63,15 +63,33 @@ public class Example {
 4. Open a GitHub issue describing the issue and include the findings from these steps.
 
 ## Road Map
-- Extend Test Suite
-  - Test more rigorously
-    - String
-    - Integer
-    - Boolean
+
+Plan for the 1.0.0 release.
+
+### MAJOR
+- TBD...
+
+### MINOR
 - Support annotating `static` method arguments with `@StaticValue`
 - Support property prefixes on class-level
   - Useful when annotating multiple fields with long common property prefixes.
 - Improve `DEBUG` logs by masking potential secrets
   - Add `isSecret`-property to the `@StaticValue` annotation to mask property values in logs.
-- and more to come...
 
+### PATCH
+- Extend Test Suite
+  - Test more rigorously
+    - String
+    - Integer
+    - Boolean
+
+## Change Log
+### 0.1.0
+- Introduced `@StaticValue`
+- Introduced `StaticValueInjector`
+- Added Support for SpEL
+- Added Support for Property Placeholders
+- Published to GitHub Packages
+- Published to Maven Central Repository
+- Deployed GitHub Pages
+- Deployed JavaDoc
