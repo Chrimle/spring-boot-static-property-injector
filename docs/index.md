@@ -28,9 +28,10 @@ The following is a simple example of how this library can be used.
 ### 2. Include `StaticValueInjector` Bean
 
 ```java
+import io.github.chrimle.sbspi.StaticValueInjector;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-...
-@SpringBootApplication(scanBasePackageClasses = "io.github.chrimle.sbspi.StaticValueInjector")
+
+@SpringBootApplication(scanBasePackageClasses = StaticValueInjector.class)
 class ExampleSpringBootApplication {}
 ```
 
