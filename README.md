@@ -21,7 +21,8 @@ The following is a simple example of how this library can be used.
     <version>0.1.0</version>
 </dependency>
 ```
-> [!INFO] This artifact is hosted on
+> [!NOTE]
+> This artifact is hosted on
 > - [Maven Central Repository](https://central.sonatype.com/artifact/io.github.chrimle/spring-boot-static-property-injector)
 > - [GitHub Packages](https://github.com/Chrimle/spring-boot-static-property-injector/packages)
 
