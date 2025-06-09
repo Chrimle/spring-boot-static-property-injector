@@ -1,5 +1,6 @@
-package io.github.chrimle.sbspi;
+package io.github.chrimle.sbspi.test;
 
+import io.github.chrimle.sbspi.StaticValueInjector;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
