@@ -1,4 +1,6 @@
-package io.github.chrimle.sbspi;
+package io.github.chrimle.sbspi.test;
+
+import io.github.chrimle.sbspi.StaticValue;
 
 /** This is a class demonstrating how {@code static String} fields can be set using properties. */
 public class StringFieldsHolder {
