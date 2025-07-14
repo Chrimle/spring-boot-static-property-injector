@@ -7,8 +7,15 @@ import java.util.Optional;
 /**
  * Exception thrown by {@link StaticValueInjector} when processing {@link StaticValue}-annotations.
  *
+ * <p><strong>API Note:</strong> This class cannot be instantiated by any constructor. Instead, it
+ * can only be instantiated via <i>static factory methods</i>.
+ *
  * @since 0.1.0
  * @author Chrimle
+ * @see #classNotFound(String, Throwable)
+ * @see #emptyAnnotationValue(Field, String)
+ * @see #unsupportedAnnotationValue(Field, String)
+ * @see #unparsableAnnotationValue(Field, String, Throwable)
  */
 public class StaticValueInjectorException extends RuntimeException {
 
