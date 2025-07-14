@@ -86,11 +86,11 @@ Plan for the 1.0.0 release.
 
 ## Change Log
 
-### 0.1.1
+### [0.1.1](https://github.com/Chrimle/spring-boot-static-property-injector/releases/tag/v0.1.1)
 - Updated JavaDocs
   - `StaticValueInjectorException`
 
-### 0.1.0
+### [0.1.0](https://github.com/Chrimle/spring-boot-static-property-injector/releases/tag/v0.1.0)
 - Introduced `@StaticValue`
 - Introduced `StaticValueInjector`
 - Added Support for SpEL
