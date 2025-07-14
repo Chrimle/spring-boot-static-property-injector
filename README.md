@@ -18,7 +18,7 @@ The following is a simple example of how this library can be used.
 <dependency>
     <groupId>io.github.chrimle</groupId>
     <artifactId>spring-boot-static-property-injector</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
 </dependency>
 ```
 > [!NOTE]
