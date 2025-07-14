@@ -51,6 +51,13 @@ public class StaticValueInjector implements BeanPostProcessor, ApplicationContex
   private final SpelExpressionParser parser = new SpelExpressionParser();
   private final StandardEvaluationContext evalContext = new StandardEvaluationContext();
 
+  /**
+   * Constructor to be invoked by Spring.
+   *
+   * @since 0.1.0
+   */
+  public StaticValueInjector() {}
+
   @Override
   public void setApplicationContext(final ApplicationContext applicationContext)
       throws BeansException {
