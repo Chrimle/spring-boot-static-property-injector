@@ -10,12 +10,12 @@ import java.util.Optional;
  * <p><strong>API Note:</strong> This class cannot be instantiated by any constructor. Instead, it
  * can only be instantiated via <i>static factory methods</i>.
  *
- * @since 0.1.0
  * @author Chrimle
  * @see #classNotFound(String, Throwable)
  * @see #emptyAnnotationValue(Field, String)
  * @see #unsupportedAnnotationValue(Field, String)
  * @see #unparsableAnnotationValue(Field, String, Throwable)
+ * @since 0.1.0
  */
 public class StaticValueInjectorException extends RuntimeException {
 
@@ -101,10 +101,36 @@ public class StaticValueInjectorException extends RuntimeException {
     return reason;
   }
 
+  /**
+   * The <i>reason</i> for the {@link StaticValueInjectorException} being thrown.
+   *
+   * @author Chrimle
+   * @since 0.1.0
+   */
   public enum Reason {
+    /**
+     * The {@link StaticValue#value()} was empty.
+     *
+     * @since 0.1.0
+     */
     ANNOTATION_VALUE_EMPTY,
+    /**
+     * The {@link StaticValue#value()} could not be parsed.
+     *
+     * @since 0.1.0
+     */
     ANNOTATION_VALUE_UNPARSABLE,
+    /**
+     * The {@link StaticValue#value()} was in an unsupported format.
+     *
+     * @since 0.1.0
+     */
     ANNOTATION_VALUE_UNSUPPORTED,
+    /**
+     * The <i>class</i> annotated with {@link StaticValue} could not be found.
+     *
+     * @since 0.1.0
+     */
     CLASS_NOT_FOUND
   }
 }
