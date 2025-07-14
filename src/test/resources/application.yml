@@ -1,2 +1,2 @@
 # This property is required, as it is used to determine from which base-package Bean scanning should start.
-sbspi.basePackage=io.github.chrimle.sbspi
+sbspi.basePackage: io.github.chrimle.sbspi
