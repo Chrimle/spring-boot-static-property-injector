@@ -21,9 +21,16 @@ public class StaticValueInjectorException extends RuntimeException {
 
   private static final long serialVersionUID = 42L;
 
+  /** The reason for this Exception. */
   private final Reason reason;
+
+  /** The annotated class related to this Exception. */
   private final Class<?> annotatedClass;
+
+  /** The annotated field related to this Exception. */
   private final String annotatedField;
+
+  /** The {@link StaticValue#value()} value related to this Exception. */
   private final String annotationValue;
 
   private StaticValueInjectorException(
@@ -85,18 +92,43 @@ public class StaticValueInjectorException extends RuntimeException {
         cause);
   }
 
+  /**
+   * Returns the {@link StaticValue#value()} related to <i>this</i> excepton being thrown.
+   *
+   * @since 0.1.0
+   * @return the {@link StaticValue#value()}.
+   */
   public String getAnnotationValue() {
     return annotationValue;
   }
 
+  /**
+   * Returns the annotated field's name, as a {@link String}, related to <i>this</i> exception being
+   * thrown.
+   *
+   * @since 0.1.0
+   * @return the annotated field.
+   */
   public String getAnnotatedField() {
     return annotatedField;
   }
 
+  /**
+   * Returns the annotated {@link Class} related to <i>this</i> exception being thrown.
+   *
+   * @since 0.1.0
+   * @return the annotated {@link Class}.
+   */
   public Class<?> getAnnotatedClass() {
     return annotatedClass;
   }
 
+  /**
+   * Returns the {@link Reason} for <i>this</i> exception being thrown.
+   *
+   * @since 0.1.0
+   * @return the {@link Reason} of <i>this</i> exception.
+   */
   public Reason getReason() {
     return reason;
   }
