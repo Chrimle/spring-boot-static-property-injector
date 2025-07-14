@@ -85,6 +85,11 @@ Plan for the 1.0.0 release.
     - Boolean
 
 ## Change Log
+
+### 0.1.1
+- Updated JavaDocs
+  - `StaticValueInjectorException`
+
 ### 0.1.0
 - Introduced `@StaticValue`
 - Introduced `StaticValueInjector`
