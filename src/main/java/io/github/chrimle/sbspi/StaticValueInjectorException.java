@@ -102,9 +102,9 @@ public class StaticValueInjectorException extends RuntimeException {
   }
 
   public enum Reason {
-    CLASS_NOT_FOUND,
     ANNOTATION_VALUE_EMPTY,
+    ANNOTATION_VALUE_UNPARSABLE,
     ANNOTATION_VALUE_UNSUPPORTED,
-    ANNOTATION_VALUE_UNPARSABLE
+    CLASS_NOT_FOUND
   }
 }
