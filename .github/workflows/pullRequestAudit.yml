@@ -19,7 +19,7 @@ jobs:
       - uses: actions/github-script@v6
         with:
           script: |
-            const categoriesRequiringSemanticVersion = ['feat', 'bug', 'javadoc', 'refactor'];
+            const categoriesRequiringSemanticVersion = ['feat', 'bug', 'javadoc'];
             const requiredCategories = ['feat', 'bug', 'doc', 'test', 'dependencies', 'meta', 'javadoc', 'refactor'];
             const semanticVersions = ['MAJOR', 'MINOR', 'PATCH'];
 
