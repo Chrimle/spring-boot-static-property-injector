@@ -87,9 +87,7 @@ public class StaticValueInjector implements BeanPostProcessor, ApplicationContex
       final var annotation = Objects.requireNonNull(field.getAnnotation(STATIC_VALUE_CLASS));
       String annotationValue = annotation.value();
       if (annotationValue == null || annotationValue.isBlank()) {
-        throw new StaticValueInjectorException(
-            "The field %s was annotated with %s, but 'value' is either null or blank!"
-                .formatted(field.getName(), STATIC_VALUE_CLASS.getSimpleName()));
+        throw StaticValueInjectorException.emptyAnnotationValue(field, annotationValue);
       }
 
       String value;
@@ -102,9 +100,7 @@ public class StaticValueInjector implements BeanPostProcessor, ApplicationContex
       } else if (annotationValue.startsWith("${")) {
         value = context.getEnvironment().resolvePlaceholders(annotationValue);
       } else {
-        throw new StaticValueInjectorException(
-            "The field %s will not be assigned a new value, because the 'value' is neither a valid SpEL nor a valid Spring Boot Property Placeholder!"
-                .formatted(field.getName()));
+        throw StaticValueInjectorException.unsupportedAnnotationValue(field, annotationValue);
       }
 
       if (annotationValue.equals(value)) {
@@ -119,9 +115,7 @@ public class StaticValueInjector implements BeanPostProcessor, ApplicationContex
       try {
         convertedValue = conversionService.convert(value, field.getType());
       } catch (ConversionException e) {
-        throw new StaticValueInjectorException(
-            "The field {} cannot be assigned a new value, because ConversionService could not parse and convert the new value!",
-            e);
+        throw StaticValueInjectorException.unparsableAnnotationValue(field, annotationValue, e);
       }
 
       final boolean accessBefore = field.canAccess(null);
@@ -141,10 +135,8 @@ public class StaticValueInjector implements BeanPostProcessor, ApplicationContex
               try {
                 return Class.forName(beanDefinition.getBeanClassName());
               } catch (ClassNotFoundException e) {
-                throw new StaticValueInjectorException(
-                    "Could not find the class for the bean: %s"
-                        .formatted(beanDefinition.getBeanClassName()),
-                    e);
+                throw StaticValueInjectorException.classNotFound(
+                    beanDefinition.getBeanClassName(), e);
               }
             })
         .map(Class::getDeclaredFields)
