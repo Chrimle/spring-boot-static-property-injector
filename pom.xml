@@ -149,6 +149,9 @@
                 <version>${maven-javadoc-plugin.version}</version>
                 <configuration>
                     <source>17</source>
+                    <additionalJOptions>
+                        <additionalJOption>-Werror</additionalJOption> <!-- Turn warnings into errors -->
+                    </additionalJOptions>
                 </configuration>
                 <executions>
                     <execution>
