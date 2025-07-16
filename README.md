@@ -1,4 +1,7 @@
 # Spring Boot Static Property Injector
+[![Java CI with Maven](https://github.com/Chrimle/spring-boot-static-property-injector/actions/workflows/maven.yml/badge.svg)](https://github.com/Chrimle/spring-boot-static-property-injector/actions/workflows/maven.yml)
+[![Maven Package](https://github.com/Chrimle/spring-boot-static-property-injector/actions/workflows/maven-publish.yml/badge.svg)](https://github.com/Chrimle/spring-boot-static-property-injector/actions/workflows/maven-publish.yml)
+[![pages-build-deployment](https://github.com/Chrimle/spring-boot-static-property-injector/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/Chrimle/spring-boot-static-property-injector/actions/workflows/pages/pages-build-deployment)
 
 If you find this project useful, please ⭐ **Star** ⭐ it and share it with others!
 This is the best way to show appreciation for this project - Thank you! ❤️
