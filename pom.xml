@@ -78,7 +78,7 @@
         <maven-javadoc-plugin.version>3.11.2</maven-javadoc-plugin.version>
         <central-publishing-maven-plugin.version>0.8.0</central-publishing-maven-plugin.version>
         <!-- === Dependency Versions === -->
-        <spring-boot-starter.version>3.5.4</spring-boot-starter.version>
+        <spring-boot-starter.version>3.5.5</spring-boot-starter.version>
     </properties>
 
     <!-- === Dependencies === -->
