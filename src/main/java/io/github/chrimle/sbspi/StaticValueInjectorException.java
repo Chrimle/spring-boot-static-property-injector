@@ -93,7 +93,7 @@ public class StaticValueInjectorException extends RuntimeException {
   }
 
   /**
-   * Returns the {@link StaticValue#value()} related to <i>this</i> excepton being thrown.
+   * Returns the {@link StaticValue#value()} related to <i>this</i> exception being thrown.
    *
    * @since 0.1.0
    * @return the {@link StaticValue#value()}.
