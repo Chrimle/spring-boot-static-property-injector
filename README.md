@@ -21,7 +21,7 @@ The following is a simple example of how this library can be used.
 <dependency>
     <groupId>io.github.chrimle</groupId>
     <artifactId>spring-boot-static-property-injector</artifactId>
-    <version>0.1.1</version>
+    <version>0.1.2</version>
 </dependency>
 ```
 > [!NOTE]
@@ -88,6 +88,12 @@ Plan for the 1.0.0 release.
     - Boolean
 
 ## Change Log
+
+### [0.1.2](https://github.com/Chrimle/spring-boot-static-property-injector/releases/tag/v0.1.2)
+- Updated JavaDocs
+    - `StaticValueInjectorException`
+- Added Missing License Header to all `.java` Files
+- Set [`chrimle-oss-parent`](https://github.com/Chrimle/Chrimle-OSS-Parent) as Maven Parent
 
 ### [0.1.1](https://github.com/Chrimle/spring-boot-static-property-injector/releases/tag/v0.1.1)
 - Updated JavaDocs
