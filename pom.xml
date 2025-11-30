@@ -70,7 +70,6 @@
     <properties>
         <!-- === Spotless === -->
         <spotless.check.skip>false</spotless.check.skip>
-        <spotless-maven-plugin.version>3.1.0</spotless-maven-plugin.version>
         <googleJavaFormat.version>1.23.0</googleJavaFormat.version>
         <!-- === Dependency Versions === -->
         <spring-boot-starter.version>3.5.7</spring-boot-starter.version>
@@ -97,7 +96,6 @@
             <plugin>
                 <groupId>com.diffplug.spotless</groupId>
                 <artifactId>spotless-maven-plugin</artifactId>
-                <version>${spotless-maven-plugin.version}</version>
                 <configuration>
                     <!-- Skips the spotless:apply when running in GitHub Actions -->
                     <skip>${env.CI}</skip>
