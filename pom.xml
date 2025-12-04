@@ -71,7 +71,7 @@
         <!-- === Spotless === -->
         <spotless.check.skip>false</spotless.check.skip>
         <!-- === Dependency Versions === -->
-        <spring-boot-starter.version>3.5.7</spring-boot-starter.version>
+        <spring-boot-starter.version>4.0.0</spring-boot-starter.version>
     </properties>
 
     <!-- === Dependencies === -->
